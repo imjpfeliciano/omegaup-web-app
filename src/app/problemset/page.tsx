@@ -19,7 +19,7 @@ const Problems = async () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {problems.map((problem) => (
+                    {problems.map((problem: OmegaupProblem) => (
                         <tr key={problem.problem_id}>
                             <td>{problem.problem_id}</td>
                             <td>{problem.title}</td>
