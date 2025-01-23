@@ -1,5 +1,7 @@
+const { BASE_URL } = process.env;
+
 const Problems = async () => {
-    const problemsResponse = await fetch('http://localhost:3000/api/problems');
+    const problemsResponse = await fetch(`${BASE_URL}/api/problems`);
     const { data } = await problemsResponse.json();
     const { results: problems } = data;
 
