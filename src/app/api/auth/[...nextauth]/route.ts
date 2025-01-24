@@ -3,8 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 const { OMEGAUP_API_TOKEN: token, NEXTAUTH_URL: LoginEndpoint, NEXTAUTH_SECRET } = process.env;
 
-
-
 const options: NextAuthOptions = {
     secret: NEXTAUTH_SECRET,
     providers: [
