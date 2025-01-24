@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 const { BASE_URL } = process.env;
 
 const Problems = async () => {
@@ -8,6 +10,7 @@ const Problems = async () => {
     if (!problems) {
         return <div>Error</div>
     }
+
     return (
         <div className="bg-white shadow-md p-4 rounded-md">
             <h1>Problems</h1>
