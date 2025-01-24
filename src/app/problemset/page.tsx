@@ -3,7 +3,10 @@ export const dynamic = 'force-dynamic';
 const { BASE_URL } = process.env;
 
 const Problems = async () => {
-    const problemsResponse = await fetch(`${BASE_URL}/api/problems`);
+    const problemsEndpoint = `${BASE_URL}/api/problems`;
+    console.log({ problemsEndpoint });
+
+    const problemsResponse = await fetch(problemsEndpoint);
     const { data } = await problemsResponse.json();
     const { results: problems } = data;
 
