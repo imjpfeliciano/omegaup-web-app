@@ -10,7 +10,7 @@ const options: NextAuthOptions = {
             
             name: 'Credentials',
             credentials: {
-            usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'jsmith' },
+            usernameOrEmail: { label: 'Username', type: 'text' },
             password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials) {
@@ -19,7 +19,7 @@ const options: NextAuthOptions = {
                 searchParams.delete('csrfToken');
                 console.log({ searchParams });
                 
-                const omegaupLoginUrl = `${LoginEndpoint}/${searchParams.toString()}`;
+                const omegaupLoginUrl = `${LoginEndpoint}/?${searchParams.toString()}`;
 
                 console.log({ omegaupLoginUrl });
 
