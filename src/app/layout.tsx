@@ -1,16 +1,21 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import Navigation from "@/components/Navigation";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import "./globals.css";
 import NextAuthSessionProvider from "./providers/SessionProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+const roboto = Roboto({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -26,19 +31,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${roboto.className} antialiased`}>
         <NextAuthSessionProvider>
           <div className="min-h-screen bg-gray-100 flex flex-col gap-4">
             <Navigation />
-            <main className="min-h-[calc(100vh-64px)] w-full mx-auto">{children}</main>
-            <footer className="bg-blue-500 w-full">
-              Footer
-            </footer>
+            <main className="min-h-[calc(100vh-64px)] w-full mx-auto">
+              {children}
+            </main>
+            <footer className="bg-blue-500 w-full">Footer</footer>
           </div>
         </NextAuthSessionProvider>
-
       </body>
     </html>
   );

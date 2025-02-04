@@ -1,6 +1,21 @@
 import { auth, signIn, signOut } from "@/auth";
 import Link from "next/link";
 
+const NavItems = [
+  {
+    name: "Home",
+    url: "/",
+  },
+  {
+    name: "Problemas",
+    url: "/problemset",
+  },
+  {
+    name: "Contests",
+    url: "/contests",
+  },
+];
+
 const Navigation = async () => {
   const session = await auth();
 
@@ -12,12 +27,16 @@ const Navigation = async () => {
         </h4>
 
         <ul className="flex flex-row gap-2">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/problemset">Problemas</Link>
-          </li>
+          {NavItems.map((item) => (
+            <li key={item.name}>
+              <Link
+                href={item.url}
+                className="hover:border p-2 rounded focus:outline-none"
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
         </ul>
         {session?.user ? (
           <form
