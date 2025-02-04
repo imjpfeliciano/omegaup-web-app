@@ -10,7 +10,7 @@ const providers = [
       usernameOrEmail: { label: "Username", type: "text" },
     },
     async authorize(credentials) {
-        console.log({ credentials })
+      console.log({ credentials });
       return {
         id: "1",
         name: "Fill Murray",
@@ -26,29 +26,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
   callbacks: {
     async signIn({ user, account, profile, credentials }) {
-        console.log({ user, account, profile, credentials })
-        const queryParams = new URLSearchParams({
-          usernameOrEmail: credentials.usernameOrEmail,
-          password: credentials.password,
+      console.log({ user, account, profile, credentials });
+      const queryParams = new URLSearchParams({
+        usernameOrEmail: credentials?.usernameOrEmail as string,
+        password: credentials?.password as string,
       }).toString();
-        const loginEndpoint = `https://omegaup.com/api/user/login/?${queryParams}`;
+      const loginEndpoint = `https://omegaup.com/api/user/login/?${queryParams}`;
 
+      const res = await fetch(loginEndpoint, {
+        headers: {
+          Authorization: `token ${OMEGAUP_API_TOKEN}`,
+        },
+      });
 
+      const data = await res.json();
 
-        const res = await fetch(loginEndpoint, {
-          headers: {
-            Authorization: `token ${OMEGAUP_API_TOKEN}`,
-          },
-        });
+      console.log({ data });
+      if (res.ok && data.status === "ok") {
+        return true;
+      }
 
-        const data = await res.json();
-
-        console.log({ data });
-        if (res.ok && data.status === "ok") {
-            return true;
-        }
-
-        return false;
+      return false;
     },
   },
   pages: {

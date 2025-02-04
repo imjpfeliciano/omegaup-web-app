@@ -1,23 +1,28 @@
-"use client"
-import { getProviders, signIn, getCsrfToken } from "next-auth/react"
-import { useEffect, useState } from "react"
-import clsx from "clsx"
+"use client";
+import clsx from "clsx";
+import { getCsrfToken, getProviders, signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+
+interface ProviderBase {
+  id: string;
+  name: string;
+}
 
 export default function Page() {
-  const [providers, setProviders] = useState({})
-  const [csrfToken, setCsrfToken] = useState("")
+  const [providers, setProviders] = useState<Record<string, ProviderBase>>({});
+  const [csrfToken, setCsrfToken] = useState("");
 
   useEffect(() => {
     // get the csrf token from the provider
     async function loadProviders() {
-      const authProviders = await getProviders()
-      setProviders(authProviders)
+      const authProviders = await getProviders();
+      if (authProviders) setProviders(authProviders);
 
-      const csrf = await getCsrfToken()
-      setCsrfToken(csrf)
+      const csrf = await getCsrfToken();
+      setCsrfToken(csrf);
     }
-    loadProviders()
-  }, [])
+    loadProviders();
+  }, []);
 
   return (
     <div className="flex flex-col lg:gap-4">
@@ -32,7 +37,11 @@ export default function Page() {
           <div className="flex flex-col">
             <label htmlFor="email">
               Email
-              <input className="border shadow-md" name="usernameOrEmail" id="usernameOrEmail" />
+              <input
+                className="border shadow-md"
+                name="usernameOrEmail"
+                id="usernameOrEmail"
+              />
             </label>
           </div>
           <div className="flex flex-col">
@@ -69,5 +78,5 @@ export default function Page() {
           </div>
         ))}
     </div>
-  )
+  );
 }
