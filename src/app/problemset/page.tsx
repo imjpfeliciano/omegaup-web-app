@@ -1,43 +1,48 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+import useSWR from "swr";
 
-const { BASE_URL } = process.env;
+// eslint-disable-next-line
+// @ts-ignore
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Problems = async () => {
-    const problemsEndpoint = `${BASE_URL}/api/problems`;
-    console.log({ problemsEndpoint });
+// const { BASE_URL } = process.env;
 
-    const problemsResponse = await fetch(problemsEndpoint);
-    const { data } = await problemsResponse.json();
-    const { results: problems } = data;
+const Problems = () => {
+  const { data, error } = useSWR("/api/problems", fetcher);
 
-    if (!problems) {
-        return <div>Error</div>
-    }
+  if (error) {
+    return <div>Error</div>;
+  }
 
-    return (
-        <div className="bg-white shadow-md p-4 rounded-md">
-            <h1>Problems</h1>
-            <table className="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th>Identificador</th>
-                        <th>Titulo</th>
-                        <th>Dificultad</th>
+  if (!data) {
+    return <div>Loading</div>;
+  }
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {problems.map((problem: OmegaupProblem) => (
-                        <tr key={problem.problem_id}>
-                            <td>{problem.problem_id}</td>
-                            <td>{problem.title}</td>
-                            <td>{problem.difficulty || '-'}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    )
-}
+  const { problems } = data;
 
-export default Problems
+  return (
+    <div className="bg-white shadow-md p-4 rounded-md">
+      <h1>Problems</h1>
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th>Identificador</th>
+            <th>Titulo</th>
+            <th>Dificultad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {problems.map((problem: OmegaupProblem) => (
+            <tr key={problem.problem_id}>
+              <td>{problem.problem_id}</td>
+              <td>{problem.title}</td>
+              <td>{problem.difficulty || "-"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Problems;
