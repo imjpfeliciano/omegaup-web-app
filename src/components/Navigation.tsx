@@ -49,7 +49,7 @@ const Navigation = async () => {
               className="hover:border px-2 py-1 rounded focus:outline-none"
               type="submit"
             >
-              Sign Out
+              {session.user.name}
             </button>
           </form>
         ) : (
