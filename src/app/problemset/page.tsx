@@ -1,6 +1,5 @@
-export const dynamic = "force-dynamic";
+"use client";
 import useSWR from "swr";
-
 // eslint-disable-next-line
 // @ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -8,21 +7,24 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 // const { BASE_URL } = process.env;
 
 const Problems = () => {
-  const { data, error } = useSWR("/api/problems", fetcher);
+  const { data, error, isLoading } = useSWR("/api/problems", fetcher);
 
   if (error) {
     return <div>Error</div>;
   }
 
-  if (!data) {
+  if (isLoading) {
     return <div>Loading</div>;
   }
 
-  const { problems } = data;
+  const {
+    data: { results, total },
+  } = data;
+  console.log({ data });
 
   return (
     <div className="bg-white shadow-md p-4 rounded-md">
-      <h1>Problems</h1>
+      <h1>Problems - {total}</h1>
       <table className="table-auto w-full">
         <thead>
           <tr>
@@ -32,7 +34,7 @@ const Problems = () => {
           </tr>
         </thead>
         <tbody>
-          {problems.map((problem: OmegaupProblem) => (
+          {results.map((problem: OmegaupProblem) => (
             <tr key={problem.problem_id}>
               <td>{problem.problem_id}</td>
               <td>{problem.title}</td>
