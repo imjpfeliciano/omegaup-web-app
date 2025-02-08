@@ -4,8 +4,6 @@ import useSWR from "swr";
 // @ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-// const { BASE_URL } = process.env;
-
 const Problems = () => {
   const { data, error, isLoading } = useSWR("/api/problems", fetcher);
 

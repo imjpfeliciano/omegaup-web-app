@@ -1,0 +1,18 @@
+.react-tabs__tab-list {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.react-tabs__tab {
+  padding: 0.5rem 1rem;
+  /* background-color: #f1f1f1; */
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.react-tabs__tab--selected {
+  padding: 0.5rem 1rem;
+  background-color: rgb(241 245 249);
+  outline: none;
+}
