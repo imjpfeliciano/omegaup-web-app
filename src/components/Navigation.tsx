@@ -1,5 +1,6 @@
-import { auth, signIn, signOut } from "@/auth";
+import { auth, signIn } from "@/auth";
 import Link from "next/link";
+import DropdownButton from "./UI/DropdownButton";
 
 const NavItems = [
   {
@@ -39,19 +40,20 @@ const Navigation = async () => {
           ))}
         </ul>
         {session?.user ? (
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <button
-              className="hover:border px-2 py-1 rounded focus:outline-none"
-              type="submit"
-            >
-              {session.user.username}
-            </button>
-          </form>
+          // <form
+          //   action={async () => {
+          //     "use server";
+          //     await signOut();
+          //   }}
+          // >
+          //   <button
+          //     className="hover:border px-2 py-1 rounded focus:outline-none"
+          //     type="submit"
+          //   >
+          //     {session.user.username}
+          //   </button>
+          // </form>
+          <DropdownButton label={session.user.username} profileImageUrl={session.user.image} />
         ) : (
           <form
             action={async () => {

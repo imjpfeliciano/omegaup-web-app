@@ -1,4 +1,10 @@
 import { auth } from "@/auth";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Main Dashboard",
+  description: "Main Dashboard",
+}
 
 const MainDashboard = async () => {
   const session = await auth();

@@ -4,16 +4,6 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import NextAuthSessionProvider from "./providers/SessionProvider";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
