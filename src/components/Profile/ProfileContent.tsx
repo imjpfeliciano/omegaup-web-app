@@ -2,6 +2,7 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import BadgesTab from "./BadgesTab";
 import SolvedProblemsTab from "./SolvedProblemsTab";
+import UnsolvedProblemsTab from "./UnsolvedProblemsTab";
 // import "./ProfileContent.css";
 
 const ProfileContent: React.FC = () => (
@@ -20,7 +21,7 @@ const ProfileContent: React.FC = () => (
       <SolvedProblemsTab username="imjpfeliciano" />
     </TabPanel>
     <TabPanel>
-      <SolvedProblemsTab username="imjpfeliciano" />
+      <UnsolvedProblemsTab username="imjpfeliciano" />
     </TabPanel>
     <TabPanel>
       <BadgesTab username="imjpfeliciano" />
