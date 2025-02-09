@@ -1,22 +1,22 @@
 "use client";
 import Card from "@/components/UI/Card";
-import { getCsrfToken, getProviders } from "next-auth/react";
+import { getCsrfToken } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-interface ProviderBase {
-  id: string;
-  name: string;
-}
+// interface ProviderBase {
+//   id: string;
+//   name: string;
+// }
 
 export default function Page() {
-  const [providers, setProviders] = useState<Record<string, ProviderBase>>({});
+  // const [providers, setProviders] = useState<Record<string, ProviderBase>>({});
   const [csrfToken, setCsrfToken] = useState("");
 
   useEffect(() => {
     // get the csrf token from the provider
     async function loadProviders() {
-      const authProviders = await getProviders();
-      if (authProviders) setProviders(authProviders);
+      // const authProviders = await getProviders();
+      // if (authProviders) setProviders(authProviders);
 
       const csrf = await getCsrfToken();
       setCsrfToken(csrf);
@@ -31,7 +31,7 @@ export default function Page() {
       <Card>
         {/* Email / password login form */}
         <form
-          className="flex flex-col gap-4 p-16 rounded-lg gap-4 self-center"
+          className="flex flex-col gap-4 p-16 rounded-lg self-center"
           method="post"
           action="/api/auth/callback/credentials"
         >
