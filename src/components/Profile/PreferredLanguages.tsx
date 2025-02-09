@@ -1,4 +1,4 @@
-import Chip from "../ui/Chip";
+import Chip from "../UI/Chip";
 
 // TODO: Fetch stats from user profile
 const PreferredLanguages: React.FC = () => (
