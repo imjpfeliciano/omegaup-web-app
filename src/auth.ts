@@ -13,7 +13,7 @@ const providers = [
     // @ts-ignore
     async authorize(credentials) {
       const profileEndpoint = `https://omegaup.com/api/user/profile/?username=${credentials.usernameOrEmail}`;
-      // console.log({ credentials, profileEndpoint });
+      console.log({ credentials, profileEndpoint });
 
       const res = await fetch(profileEndpoint, {
         headers: {

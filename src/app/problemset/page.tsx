@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import useSWR from "swr";
 // eslint-disable-next-line
 // @ts-ignore
@@ -12,36 +13,43 @@ const Problems = () => {
   }
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="h-10 w-full bg-gray-200 rounded-md"></div>
+        <div className="h-10 w-full bg-gray-200 rounded-md"></div>
+        <div className="h-10 w-full bg-gray-200 rounded-md"></div>
+        <div className="h-10 w-full bg-gray-200 rounded-md"></div>
+      </div>
+    );
   }
 
   const {
     data: { results, total },
   } = data;
-  console.log({ data });
 
   return (
-    <div className="bg-white shadow-md p-4 rounded-md">
-      <h1>Problems - {total}</h1>
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th>Identificador</th>
-            <th>Titulo</th>
-            <th>Dificultad</th>
+    <table className="table-auto w-full">
+      <thead>
+        <tr>
+          <th>Identificador</th>
+          <th className="text-left">Titulo</th>
+          <th>Dificultad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {results.map((problem: OmegaupProblem) => (
+          <tr key={problem.problem_id}>
+            <td className="text-center">
+              <Link href={`/problems/${problem.alias}`}>
+                {problem.problem_id}
+              </Link>
+            </td>
+            <td>{problem.title}</td>
+            <td className="text-center">{problem.difficulty || "-"}</td>
           </tr>
-        </thead>
-        <tbody>
-          {results.map((problem: OmegaupProblem) => (
-            <tr key={problem.problem_id}>
-              <td>{problem.problem_id}</td>
-              <td>{problem.title}</td>
-              <td>{problem.difficulty || "-"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
