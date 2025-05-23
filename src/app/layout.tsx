@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import { QueryProvider } from "@/providers/QueryProvider";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
@@ -23,13 +24,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
         <NextAuthSessionProvider>
-          <div className="min-h-screen bg-gray-100 flex flex-col gap-4">
-            <Navigation />
-            <main className="min-h-[calc(100vh-64px)] w-full mx-auto">
-              {children}
-            </main>
-            <footer className="bg-blue-500 w-full">Footer</footer>
-          </div>
+          <QueryProvider>
+            <div className="min-h-screen bg-gray-100 flex flex-col gap-4">
+              <Navigation />
+              <main className="min-h-[calc(100vh-64px)] w-full mx-auto">
+                {children}
+              </main>
+              <footer className="bg-blue-500 w-full">Footer</footer>
+            </div>
+          </QueryProvider>
         </NextAuthSessionProvider>
       </body>
     </html>

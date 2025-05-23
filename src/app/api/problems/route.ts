@@ -1,14 +1,27 @@
-const { OMEGAUP_API_URL, OMEGAUP_API_TOKEN } = process.env;
+import { omegaUpRepository } from "@/repositories/omegaUpRepository";
 
-export async function GET() {
-  const res = await fetch(`${OMEGAUP_API_URL}/problem/list`, {
-    headers: {
-      Authorization: `token ${OMEGAUP_API_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-  });
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : 1;
+  const pageSize = searchParams.get("pageSize")
+    ? parseInt(searchParams.get("pageSize")!)
+    : 10;
+  const query = searchParams.get("query") || "";
 
-  const data = await res.json();
+  try {
+    const data = await omegaUpRepository.getListOfProblems({
+      page,
+      pageSize,
+      query,
+    });
 
-  return Response.json({ data });
+    return Response.json(data);
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to fetch problems" },
+      { status: 500 }
+    );
+  }
 }

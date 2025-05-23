@@ -1,12 +1,16 @@
 "use client";
+import { useProblems } from "@/hooks/useProblems";
 import Link from "next/link";
-import useSWR from "swr";
-// eslint-disable-next-line
-// @ts-ignore
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+interface OmegaupProblem {
+  problem_id: string;
+  alias: string;
+  title: string;
+  difficulty?: string;
+}
 
 const Problems = () => {
-  const { data, error, isLoading } = useSWR("/api/problems", fetcher);
+  const { data, error, isLoading } = useProblems();
 
   if (error) {
     return <div>Error</div>;
@@ -23,9 +27,9 @@ const Problems = () => {
     );
   }
 
-  const {
-    data: { results, total },
-  } = data;
+  const { results, total } = data || { results: [], total: 0 };
+
+  // FIXME: Add pagination
 
   return (
     <table className="table-auto w-full">
