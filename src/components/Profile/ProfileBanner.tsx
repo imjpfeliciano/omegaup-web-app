@@ -1,15 +1,19 @@
 import { auth } from "@/auth";
+import Image from "next/image";
 
 const ProfileBanner: React.FC = async () => {
   const session = await auth();
 
-  console.log({ session });
+  if (!session) return null;
+
   return (
     <div className="flex flex-row gap-2">
-      <img
+      <Image
+        width={96}
+        height={96}
         src={session.user.image}
         alt="Profile picture"
-        className="w-24 h-24 rounded-md"
+        className="w-24 h-24 rounded-md object-contain"
       />
       <div className="flex flex-col gap-4">
         <div>

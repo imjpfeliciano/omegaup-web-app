@@ -1,7 +1,9 @@
 "use client";
+import Image from "next/image";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args: [RequestInfo, RequestInit]) =>
+  fetch(...args).then((res) => res.json());
 
 interface BadgesTabProps {
   username: string;
@@ -36,7 +38,9 @@ const BadgesTab: React.FC<BadgesTabProps> = ({ username }) => {
           className="flex flex-col gap-2 items-center"
           key={badge.badge_alias}
         >
-          <img
+          <Image
+            width={96}
+            height={96}
             src={`https://omegaup.com/media/dist/badges/${badge.badge_alias}.svg`}
             alt={badge.badge_alias}
             className="grid-cols-1 items-center justify-center w-24 h-24"

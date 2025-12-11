@@ -33,6 +33,9 @@ const languagesLanguageMapping = {
   "cpp11-clang": "cpp",
   "cpp17-gcc": "cpp",
   "cpp17-clang": "cpp",
+  "cpp20-gcc": "cpp",
+  "cpp20-clang": "cpp",
+  // TODO: Validate this mapping
   java: "java",
   kt: "kotlin",
   py2: "python",
@@ -66,7 +69,11 @@ const TextEditor = ({
           >
             {supportedLanguages.map((language) => (
               <option key={language} value={language}>
-                {languagesLabelMapping[language]}
+                {
+                  languagesLabelMapping[
+                    language as keyof typeof languagesLabelMapping
+                  ]
+                }
               </option>
             ))}
           </select>
@@ -74,7 +81,11 @@ const TextEditor = ({
       </div>
       <Editor
         height="50vh"
-        defaultLanguage={languagesLanguageMapping[language]}
+        defaultLanguage={
+          languagesLanguageMapping[
+            language as keyof typeof languagesLanguageMapping
+          ]
+        }
         defaultValue="// Write your code here"
         theme="vs-light"
         options={{
