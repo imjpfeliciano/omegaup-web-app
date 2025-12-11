@@ -53,6 +53,13 @@ const Problems = () => {
           </tr>
         ))}
       </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan={3} className="text-center">
+            Total: {total}
+          </td>
+        </tr>
+      </tfoot>
     </table>
   );
 };

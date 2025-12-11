@@ -13,14 +13,14 @@ export const ProblemDetails = ({
   id,
   statement,
 }: {
-  statement: Record<string, any>;
+  statement: Record<string, unknown>;
   title: string;
   id: string;
 }) => {
   const { markdown } = statement;
 
   // First, convert special blocks to tables, then fix LaTeX
-  const tabled = convertBlocksToTables(markdown);
+  const tabled = convertBlocksToTables(markdown as string);
   const fixed = fixLatexMarkdown(tabled);
 
   return (
@@ -35,15 +35,19 @@ export const ProblemDetails = ({
           remarkPlugins={[remarkMath, remarkGfm]}
           rehypePlugins={[rehypeKatex]}
           components={{
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             h1: ({ node, ...props }) => (
               <h1 className="text-lg font-bold mb-4" {...props} />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             h2: ({ node, ...props }) => (
               <h2 className="text-md font-semibold mb-3" {...props} />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             h3: ({ node, ...props }) => (
               <h3 className="text-sm font-semibold mb-2" {...props} />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             p: ({ node, ...props }) => <p className="mb-2" {...props} />,
           }}
         >

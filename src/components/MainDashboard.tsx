@@ -4,10 +4,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Main Dashboard",
   description: "Main Dashboard",
-}
+};
 
 const MainDashboard = async () => {
   const session = await auth();
+  if (!session) return null;
   const { user } = session;
   return (
     <div>

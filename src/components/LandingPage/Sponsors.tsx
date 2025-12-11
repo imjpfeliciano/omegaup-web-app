@@ -1,3 +1,4 @@
+import Image from "next/image";
 interface Sponsor {
   illustration: string;
   link: string;
@@ -28,10 +29,12 @@ const SponsorsSection = () => {
         {config.map((item) => (
           <a key={item.link} href={item.link} target="_blank" rel="noreferrer">
             <div className="w-[250px] self-center">
-              <img
+              <Image
+                width={250}
+                height={250}
                 src={item.illustration}
                 alt="Sponsor"
-                className="w-full grayscale"
+                className="w-full grayscale object-contain"
               />
             </div>
           </a>

@@ -10,7 +10,7 @@ export function convertBlocksToTables(markdown: string): string {
     while ((match = columnRegex.exec(block)) !== null) {
       const name = match[1].trim();
       // Remove any trailing ||end or blank lines from the value
-      let cellContent = match[2]
+      const cellContent = match[2]
         .replace(/\n\|\|end[\s\S]*$/g, "") // Remove trailing ||end and anything after
         .split("\n")
         .map((line: string) => line.trim())

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const config = [
   //   {
   //     illustration: "https://omegaup.com/media/homepage/contests_section.svg",
@@ -52,8 +54,10 @@ const AboutSection = () => (
           </div>
         </div>
 
-        <img
+        <Image
           src={item.illustration}
+          width={500}
+          height={300}
           alt={item.title}
           className="aspect-video max-w-[300px] lg:max-w-[500px]"
         />

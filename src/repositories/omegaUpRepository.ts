@@ -1,6 +1,6 @@
 interface Problem {
   // Add problem interface properties here
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface ProblemListResponse {
@@ -14,7 +14,7 @@ interface ProblemDetailsResponse {
 
 class OmegaUpRepository {
   private static instance: OmegaUpRepository;
-  private cache: Map<string, { data: any; timestamp: number }>;
+  private cache: Map<string, { data: unknown; timestamp: number }>;
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
   private constructor() {
@@ -28,7 +28,10 @@ class OmegaUpRepository {
     return OmegaUpRepository.instance;
   }
 
-  private getCacheKey(endpoint: string, params: Record<string, any>): string {
+  private getCacheKey(
+    endpoint: string,
+    params: Record<string, string>
+  ): string {
     return `${endpoint}?${new URLSearchParams(params).toString()}`;
   }
 
@@ -38,13 +41,13 @@ class OmegaUpRepository {
 
   private async fetchWithCache<T>(
     endpoint: string,
-    params: Record<string, any> = {}
+    params: Record<string, string> = {}
   ): Promise<T> {
     const cacheKey = this.getCacheKey(endpoint, params);
     const cachedData = this.cache.get(cacheKey);
 
     if (cachedData && this.isCacheValid(cachedData.timestamp)) {
-      return cachedData.data;
+      return cachedData.data as T;
     }
 
     const queryParams = new URLSearchParams(params).toString();
@@ -76,7 +79,11 @@ class OmegaUpRepository {
       query?: string;
     } = {}
   ): Promise<ProblemListResponse> {
-    return this.fetchWithCache<ProblemListResponse>("/problem/list", params);
+    return this.fetchWithCache<ProblemListResponse>("/problem/list", {
+      page: params.page?.toString() || "",
+      pageSize: params.pageSize?.toString() || "",
+      query: params.query || "",
+    });
   }
 
   public async getProblemDetails(

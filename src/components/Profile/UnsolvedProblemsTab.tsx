@@ -1,6 +1,7 @@
 "use client";
 import useSWR from "swr";
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args: [RequestInfo, RequestInit]) =>
+  fetch(...args).then((res) => res.json());
 
 interface UnsolvedProblemsTabProps {
   username: string;
@@ -24,12 +25,14 @@ const UnsolvedProblemsTab: React.FC<UnsolvedProblemsTabProps> = ({
   }
 
   const {
-    data: { problems },
-  } = responseData;
-  console.log({ problems });
+    data: { problems = [] },
+  } = responseData as {
+    data: { problems: OmegaupProblem[] };
+  };
+
   return (
     <div className="grid grid-cols-2 flex-col items-center justify-center gap-4 overflow-y-scroll">
-      {problems.map((problem: any) => (
+      {problems.map((problem: OmegaupProblem) => (
         <div
           key={problem.alias}
           className="grid-cols-1 p-2 bg-slate-100 rounded"
